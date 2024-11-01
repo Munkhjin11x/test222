@@ -1,101 +1,170 @@
+"use client";
+import { useEffect, useState } from "react";
+import { KeyboardKey, Tsoom } from "./components";
+import { InfiniteMovingCards } from "@/components/ui/infinite";
 import Image from "next/image";
+import { LayoutGrid } from "@/components/ui/layout";
+
+const data = ["h", "e", "l", "l", "o"];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [modalOpen, setModalOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      if (data.includes(key)) {
+        handleClick(key);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+  const modalhandler = () => {
+    setModalOpen(!modalOpen);
+  };
+  const handleClick = (letter: string) => {
+    modalhandler();
+    console.log("Clicked letter:", letter);
+  };
+
+  return (
+    <div className="h-full flex items-center justify-center flex-col w-screen   p-10">
+      <p className="text-7xl text-white font-semibold bg-gradient-to-r from-[#fa71f7] to-[#e90c7e] px-2">I LOVE YOU MY JAAHNAA {'<3'}</p>
+      <LayoutGrid cards={cards} />
+      <InfiniteMovingCards
+        className="bg-black overflow-hidden "
+        items={loveTheory}
+        direction="right"
+        speed="slow"
+      />
+      <Tsoom isOpen={modalOpen} onClose={modalhandler} />
     </div>
   );
 }
+
+const loveTheory = [
+  {
+    quote: "Every moment with you feels like the best of times.",
+    name: "You",
+    title: "Our Love Story",
+  },
+  {
+    quote:
+      "To love you, or not to love you? There's no question. My heart chose you long ago.",
+    name: "You",
+    title: "Endless Love",
+  },
+  {
+    quote:
+      "In your eyes, I see my world. Everything feels like a beautiful dream.",
+    name: "You",
+    title: "Dreams of Us",
+  },
+  {
+    quote: "It’s universally known that my heart is hopelessly yours.",
+    name: "You",
+    title: "Forever and Always",
+  },
+  {
+    quote:
+      "Call me yours. Some days ago—or perhaps forever—I realized there's nowhere I'd rather be.",
+    name: "You",
+    title: "My Journey to You",
+  },
+];
+{
+  /* <div className="flex flex-wrap gap-8 max-w-[400px]">
+        {data.map((e, i) => (
+          <KeyboardKey onClick={() => handleClick(e)} key={i} letter={e}>
+            {e}
+          </KeyboardKey>
+        ))}
+      </div> */
+}
+
+const SkeletonOne = () => {
+  return (
+    <div>
+      <p className="font-bold md:text-4xl text-xl text-white">
+        Together in Every Step
+      </p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        Just like a cozy house in the woods, our love feels like a haven,
+        sheltered from the chaos of the world, warm and serene.
+      </p>
+    </div>
+  );
+};
+
+const SkeletonTwo = () => {
+  return (
+    <div>
+      <p className="font-bold md:text-4xl text-xl text-white">
+        Love Above All
+      </p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        Our love feels like a home in the clouds, untouched, where every view is
+        a reminder of how high we've soared together.
+      </p>
+    </div>
+  );
+};
+
+const SkeletonThree = () => {
+  return (
+    <div>
+      <p className="font-bold md:text-4xl text-xl text-white">
+        A Heart Blooming
+      </p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        Like greenery surrounding us, our love grows beautifully, filling every
+        corner with life, peace, and endless joy.
+      </p>
+    </div>
+  );
+};
+
+const SkeletonFour = () => {
+  return (
+    <div>
+      <p className="font-bold md:text-4xl text-xl text-white">
+        Flowing Together
+      </p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        By the river of life, we find calm and contentment, flowing together
+        through every season, forever serene and steady.
+      </p>
+    </div>
+  );
+};
+
+const cards = [
+  {
+    id: 1,
+    content: <SkeletonOne />,
+    className: "md:col-span-4",
+    thumbnail: " /moon.jpg",
+  },
+  {
+    id: 2,
+    content: <SkeletonTwo />,
+    className: "col-span-1",
+    thumbnail: " /love.jpeg",
+  },
+  {
+    id: 3,
+    content: <SkeletonThree />,
+    className: "col-span-1",
+    thumbnail: " /love1.jpeg",
+  },
+  {
+    id: 4,
+    content: <SkeletonFour />,
+    className: "md:col-span-1",
+    thumbnail: " /love2.jpeg",
+  },
+];
