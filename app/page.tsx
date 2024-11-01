@@ -33,10 +33,10 @@ export default function Home() {
 
   return (
     <div className="h-full flex items-center justify-center flex-col w-screen   p-10">
-      <p className="text-7xl text-white font-semibold bg-gradient-to-r from-[#fa71f7] to-[#e90c7e] px-2">I LOVE YOU MY JAAHNAA {'<3'}</p>
+      <p className=" text-lg sm:text-7xl text-white font-semibold bg-gradient-to-r from-[#fa71f7] to-[#e90c7e] px-2">I LOVE YOU MY JAAHNAA {'<3'}</p>
       <LayoutGrid cards={cards} />
       <InfiniteMovingCards
-        className="bg-black overflow-hidden "
+        className="bg-black w-[370px] overflow-hidden "
         items={loveTheory}
         direction="right"
         speed="slow"
